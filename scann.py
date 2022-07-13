@@ -23,7 +23,7 @@ class InvalidIPFormat(Exception):
 
 
 class HostScan:
-    """HostScan 
+    """HostScan
     Contains all necessary functions to determine if a target matches our criteria
 
     Takes Note of:
@@ -35,6 +35,7 @@ class HostScan:
         - Serve Header Equal to specific values?
         - Can we list the Directory Listing?
     """
+
     def __init__(self, **kwargs):
         self.target = kwargs.get("HostIp")
         self.start_port = kwargs.get("StartPort", 1)
@@ -45,9 +46,8 @@ class HostScan:
         except OSError as err:
             raise InvalidIPFormat(self.target, err)
 
-
     def open_ports(self):
-        '''Determins if sockets are open or not'''
+        """Determins if sockets are open or not"""
 
         port_list = []
 
@@ -64,7 +64,7 @@ class HostScan:
         return port_list
 
     def request(self, port):
-        '''Creates a Resposne Object to use going forward'''
+        """Creates a Response Object to use going forward"""
         try:
             response = requests.get(f"http://{self.target}:{port}", timeout=3)
             return response
@@ -72,22 +72,22 @@ class HostScan:
             pass
 
     def headers(self, response):
-        '''Validates headers in the Response object'''
+        """Validates headers in the Response object"""
         if response.headers:
             return True
 
     def server_header(self, response):
-        '''Confirms Server Header'''
+        """Confirms Server Header"""
         if "Server" in response.headers:
             return True
 
     def server_type(self, response):
-        '''Matches the type of server (this is ugly and basic)'''
+        """Matches the type of server (this is ugly and basic)"""
         server_header = response.headers["Server"]
         if "nginx/1.2." in server_header or "Microsoft/IIS-7." in server_header:
             return True
 
     def can_list_directory(self, response):
-        '''Determines if we can list the directory listing (also ugly)'''
+        """Determines if we can list the directory listing (also ugly)"""
         if "Index of" in response.text or self.target in response.text:
             return True
