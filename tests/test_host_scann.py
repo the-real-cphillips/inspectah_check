@@ -35,6 +35,7 @@ def test_open_ports_elements_are_ints(host_obj):
     port_list = host_obj.open_ports()
     assert isinstance(port_list[0], int)
 
+
 @pytest.mark.mocked
 @responses.activate
 def test_request(host_obj):
