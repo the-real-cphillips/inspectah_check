@@ -47,7 +47,7 @@ def parse_args():
         action="store",
         dest="start_port",
         default=1,
-        help="Start of Port Range to Scan"
+        help="Start of Port Range to Scan",
     )
     parser.add_argument(
         "-e",
@@ -55,7 +55,7 @@ def parse_args():
         action="store",
         dest="end_port",
         default=65536,
-        help="End of Port Range to Scan. Note: Don't Forget to Add 1 if the last port you want is 8080, make sure you set this to 8081"
+        help="End of Port Range to Scan. Note: Don't Forget to Add 1 if the last port you want is 8080, make sure you set this to 8081",
     )
     return parser.parse_args()
 
@@ -73,7 +73,7 @@ def has_all_attributes(host_scan_object, response):
         "server_type_bool": server_type_bool,
         "server_type": server_type,
         "server_header": server_header,
-        "directory_list": directory_list
+        "directory_list": directory_list,
     }
 
     hso = host_scan_object
@@ -88,7 +88,7 @@ def has_all_attributes(host_scan_object, response):
         server_type = hso.server_type(response)
 
     if server_type:
-        all_attributes["server_type"] = response.headers['Server']
+        all_attributes["server_type"] = response.headers["Server"]
         all_attributes["server_type_bool"] = server_type
         directory_list = hso.can_list_directory(response)
 
@@ -107,14 +107,14 @@ def main():
     for target_ip in args.targets:
         toc = time.perf_counter()
         table = []
-        print(f'\n[I] Starting Scan {target_ip}')
+        print(f"\n[I] Starting Scan {target_ip}")
 
         try:
             target = HostScan(
-                    HostIp=target_ip,
-                    StartPort=int(args.start_port),
-                    EndPort=int(args.end_port)
-                    )
+                HostIp=target_ip,
+                StartPort=int(args.start_port),
+                EndPort=int(args.end_port),
+            )
         except InvalidIPFormat as err:
             print(f"[X] Input: {err.address} Error: {err.message}")
             sys.exit(2)
@@ -132,7 +132,13 @@ def main():
                 can_list_dir = all_attributes["directory_list"]
 
                 table.append(
-                    [port, has_server_header, has_server_type, server_type, can_list_dir] 
+                    [
+                        port,
+                        has_server_header,
+                        has_server_type,
+                        server_type,
+                        can_list_dir,
+                    ]
                 )
 
         table_columns = [
@@ -144,10 +150,11 @@ def main():
         ]
         print(tabulate(table, headers=table_columns, tablefmt="grid"))
         tic = time.perf_counter()
-        print(f'Scan Time: {tic - toc:.2f} seconds')
+        print(f"Scan Time: {tic - toc:.2f} seconds")
 
     total_tic = time.perf_counter()
-    print(f'\n**** Total Run Time: {total_tic - total_toc:.2f} seconds ****')
+    print(f"\n**** Total Run Time: {total_tic - total_toc:.2f} seconds ****")
+
 
 if __name__ == "__main__":
     main()
