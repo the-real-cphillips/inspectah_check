@@ -1,5 +1,5 @@
-black
-pytest
-requests
-responses
-tabulate
+black==22.6.0
+pytest==7.1.2
+requests==2.28.1
+responses==0.21.0
+tabulate==0.8.10
