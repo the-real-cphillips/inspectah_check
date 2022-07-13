@@ -1,5 +1,7 @@
 # Inspectah Check/Scann
 
+[![Lint with Black](https://github.com/the-real-cphillips/inspectah_check/actions/workflows/black.yaml/badge.svg)](https://github.com/the-real-cphillips/inspectah_check/actions/workflows/black.yaml) [![Pytest](https://github.com/the-real-cphillips/inspectah_check/actions/workflows/pytest.yaml/badge.svg)](https://github.com/the-real-cphillips/inspectah_check/actions/workflows/pytest.yaml)
+
 Wu-tang is Forever... Open ports (possibly) shouldn't be.
 
 ---
