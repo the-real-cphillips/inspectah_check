@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Ascii Art From: https://textart.io/art/eOu6_na69sZhXxRlmwdytgeF/starwars-arakyd-viper-probe-droid
+# Ascii Art From: https://emojicombos.com/wu-tang-ascii-art
 
 import sys
 import time
